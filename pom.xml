@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>sledgehammer-dependencies</module>
-        <module>sledgehammer-getway</module>
+        <module>sledgehammer-gateway</module>
     </modules>
     <version>1.0-SNAPSHOT</version>
 
