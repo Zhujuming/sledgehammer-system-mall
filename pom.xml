@@ -11,7 +11,24 @@
     <modules>
         <module>sledgehammer-dependencies</module>
         <module>sledgehammer-gateway</module>
+        <module>sledgehammer-order</module>
     </modules>
     <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <revision>1.0-SNAPSHOT</revision>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.sledgehammer.cloud</groupId>
+                <artifactId>sledgehammer-dependencies</artifactId>
+                <version>${revision}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>

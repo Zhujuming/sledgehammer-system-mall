@@ -3,12 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.seven.cloud</groupId>
-        <artifactId>sledgehammer‌-system-main</artifactId>
+        <groupId>com.sledgehammer.cloud</groupId>
+        <artifactId>sledgehammer-system-main</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.seven.system</groupId>
+    <groupId>com.sledgehammer.system</groupId>
     <artifactId>sledgehammer-gateway</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>{project.artifactId}</name>
