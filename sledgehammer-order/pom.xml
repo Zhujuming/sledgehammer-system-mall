@@ -3,16 +3,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.sledgehammer.cloud</groupId>
-        <artifactId>sledgehammer-system-main</artifactId>
+        <groupId>com.seven.cloud</groupId>
+        <artifactId>sledgehammer-system-mall</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath/>
     </parent>
 
-    <groupId>com.sledgehammer</groupId>
     <artifactId>sledgehammer-order</artifactId>
     <name>sledgehammer-order</name>
-    <description>sledgehammer-order</description>
+    <description>订单服务</description>
 
 
     <properties>
@@ -29,6 +27,18 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!-- 引入 MySQL 依赖 -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+        </dependency>
+        <!-- 引入 Druid 依赖 -->
+        <!-- 功能：监控和统计；防止 SQL 注入；慢查询日志；连接池监控 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
 
