@@ -6,8 +6,7 @@
 
     <groupId>com.seven.cloud</groupId>
     <artifactId>sledgehammer-dependencies</artifactId>
-    <version>${revision}</version>
-
+    <version>1.0-SNAPSHOT</version>
     <name>${project.artifactId}</name>
     <description>基础 bom 文件，管理整个项目的依赖版本</description>
 
@@ -18,10 +17,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.boot.version>3.2.0</spring.boot.version>
         <spring.cloud.version>2023.0.0</spring.cloud.version>
-        <spring.cloud.alibaba.version>2022.0.0.0</spring.cloud.alibaba.version>
-        <log4j.version>2.20</log4j.version>
+        <spring.cloud.alibaba.version>2023.0.0.0-RC1</spring.cloud.alibaba.version>
         <mysql.version>8.0.33</mysql.version>
-        <druid.version>1.2.10</druid.version>
+        <druid.version>1.2.23</druid.version>
         <mybatis.version>3.0.3</mybatis.version>
         <hutool.version>5.8.20</hutool.version>
         <springdoc.version>2.3.0</springdoc.version>
@@ -59,13 +57,6 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- 引入 log4j 依赖 -->
-            <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
-                <version>${log4j.version}</version>
-            </dependency>
-
             <!-- 引入 Spring Boot 单元测试 依赖 -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -87,9 +78,10 @@
                 <artifactId>mysql-connector-j</artifactId>
                 <version>${mysql.version}</version>
             </dependency>
+            <!--自动配置 已经包含了 druid 核心库-->
             <dependency>
                 <groupId>com.alibaba</groupId>
-                <artifactId>druid</artifactId>
+                <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.version}</version>
             </dependency>
 
@@ -110,4 +102,32 @@
         </dependencies>
     </dependencyManagement>
 
+
+    <!-- 构建配置 -->
+    <build>
+        <!-- pluginManagement 用于「统一管理和锁定插件版本与配置」⚠️ 注意：它不会直接执行插件，-->
+        <!-- 只是定义“规范”子模块只有在自己声明使用该插件时，才会继承这里的配置，非常适合写在 BOM / 父 POM 中-->
+        <pluginManagement>
+            <plugins>
+                <!-- Maven 编译器插件配置 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.11.0</version>
+                    <configuration>
+                        <!-- Java 源代码版本 -->
+                        <source>${maven.compiler.source}</source>
+                        <!-- 编译目标版本 -->
+                        <target>${maven.compiler.target}</target>
+                        <!-- 文件编码 -->
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                        <!-- 编译器参数：保留参数名，支持反射获取参数名 -->
+                        <compilerArgs>
+                            <arg>-parameters</arg>
+                        </compilerArgs>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>
