@@ -12,6 +12,7 @@
         <module>sledgehammer-dependencies</module>
         <module>sledgehammer-gateway</module>
         <module>sledgehammer-order</module>
+        <module>sledgehammer-pay</module>
     </modules>
     <version>1.0-SNAPSHOT</version>
 

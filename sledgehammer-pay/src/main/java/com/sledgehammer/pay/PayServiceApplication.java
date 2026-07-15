@@ -1,13 +1,13 @@
-package com.seven.system.sevengateway;
+package com.sledgehammer.pay;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SevenGatewayApplication {
+public class PayServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SevenGatewayApplication.class, args);
+        SpringApplication.run(PayServiceApplication.class, args);
     }
 
 }
