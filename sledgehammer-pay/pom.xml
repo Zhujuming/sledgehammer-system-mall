@@ -20,7 +20,7 @@
     </properties>
 
     <dependencies>
-        <!-- 引入 SpringBoot Web 模块 -->
+        <!-- 引入 SpringBoot Web 模块，包括 Spring MVC、Tomcat、Jackson 等）引入到项目中 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -31,6 +31,17 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- 引入 Nacos 依赖 -->
+        <!-- 功能：服务发现、服务注册、配置管理 -->
+        <!-- 依赖：nacos-client、nacos-server -->
+        <!-- 依赖：nacos-common -->
+        <!-- 依赖：nacos-config -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
