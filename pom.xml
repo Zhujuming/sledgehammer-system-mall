@@ -13,6 +13,7 @@
         <module>sledgehammer-gateway</module>
         <module>sledgehammer-order</module>
         <module>sledgehammer-pay</module>
+        <module>common-module</module>
     </modules>
     <version>1.0-SNAPSHOT</version>
 
