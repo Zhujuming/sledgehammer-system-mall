@@ -69,7 +69,6 @@
         <dependency>
             <groupId>com.seven.cloud</groupId>
             <artifactId>common-module</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
     </dependencies>
