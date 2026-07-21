@@ -15,6 +15,6 @@ public class PayController {
     }
     @RequestMapping("/addPayType")
     public String addPayType(@RequestBody OrderDO orderDO) {
-        return "add payType success !!! 商品名称：" + orderDO.getProductName();
+        return "add payType success !!! Pay服务222的商品名称：" + orderDO.getProductName();
     }
 }

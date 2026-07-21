@@ -3,6 +3,9 @@ spring:
     name: sledgehammer-gateway-service
   profiles:
     active: dev
+  config:
+    import:
+      - optional:nacos:${spring.application.name}-dev.yml
   cloud:
     nacos:
       discovery:
@@ -14,7 +17,17 @@ spring:
         username: ${NACOS_USERNAME:nacos}
         password: ${NACOS_PASSWORD:9TVlQPhvwgXU}
         file-extension: yml
-  config:
-    import:
-      - optional:nacos:${spring.application.name}-dev.yml
+    gateway:
+      discovery:
+        locator:
+          enabled: true # 开启从注册中心动态创建路由的功能
+      routes: # 路由配置
+        - id: sledgehammer-order-service # 路由唯一标识，路由名称 ，要求唯一[建议配合服务名]
+          uri: lb://sledgehammer-order-service # 路由地址，lb://sledgehammer-order-service 表示从注册中心获取 sledgehammer-order-service 服务的地址
+          predicates:
+            - Path=/order/** # 路由匹配条件，/order/** 表示匹配 /order 开头的请求
+        - id: sledgehammer-pay-service # 路由唯一标识，路由名称 ，要求唯一[建议配合服务名]
+          uri: lb://sledgehammer-pay-service # 路由地址，lb://sledgehammer-pay-service 表示从注册中心获取 sledgehammer-pay-service 服务的地址
+          predicates:
+            - Path=/pay/** # 路由匹配条件，/pay/** 表示匹配 /pay 开头的请求
 
