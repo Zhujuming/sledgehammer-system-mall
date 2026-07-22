@@ -10,7 +10,7 @@
 
     <artifactId>sledgehammer-pay</artifactId>
     <name>sledgehammer-pay</name>
-    <description>支付服务</description>
+    <description>支付服务 pay</description>
 
     <properties>
         <java.version>21</java.version>
