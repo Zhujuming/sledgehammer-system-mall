@@ -23,6 +23,7 @@
         <mybatis.version>3.0.3</mybatis.version>
         <hutool.version>5.8.20</hutool.version>
         <springdoc.version>2.3.0</springdoc.version>
+        <java-jwt.version>4.5.2</java-jwt.version>
     </properties>
 
     <!--因为是总项目 所以用dependencyManagement 来管理，因为其他的子项目有就不会来管理版本了，可以直接引用-->
@@ -97,6 +98,13 @@
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
                 <version>${springdoc.version}</version>
+            </dependency>
+
+            <!-- 引入 java-jwt 依赖 -->
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>${java-jwt.version}</version>
             </dependency>
 
         </dependencies>
