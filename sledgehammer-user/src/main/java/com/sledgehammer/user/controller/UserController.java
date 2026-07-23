@@ -31,7 +31,7 @@ public class UserController {
         String username = reqVO.getUsername();
         String password = reqVO.getPassword();
         // 验证用户名密码是否正确
-        if (!password.equals("correctPassword")) {
+        if (!password.equals("root123")) {
             result.put("success", false);
             result.put("message", "Invalid username or password");
             return result;
