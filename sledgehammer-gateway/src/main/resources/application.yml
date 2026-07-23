@@ -30,4 +30,8 @@ spring:
           uri: lb://sledgehammer-pay-service # 路由地址，lb://sledgehammer-pay-service 表示从注册中心获取 sledgehammer-pay-service 服务的地址
           predicates:
             - Path=/pay/** # 路由匹配条件，/pay/** 表示匹配 /pay 开头的请求
+        - id: sledgehammer-user-service
+          uri: lb://sledgehammer-user-service
+          predicates:
+            - Path=/user/**
 

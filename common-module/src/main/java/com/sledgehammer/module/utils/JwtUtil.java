@@ -32,7 +32,7 @@ public class JwtUtil {
     /**
      * 默认 Token 过期时间（24 小时）单位：毫秒
      */
-    private static final long TOKEN_TIMEOUT_MILLIS = 1000 * 60 * 60 * 24;
+    public static final long TOKEN_TIMEOUT_MILLIS = 1000 * 60 * 60 * 24;
 
     /**
      * 获取签名算法
