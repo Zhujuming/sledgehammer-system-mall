@@ -1,5 +1,6 @@
 package com.sledgehammer.user.controller;
 
+import com.sledgehammer.module.utils.JwtUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,6 +16,7 @@ public class UserController {
     public String login() {
         //验证用户名密码是否正确
         //如果正确，使用JWT生成一个token，返回给用户，存储在Redis中
+        String token = JwtUtil.generateToken("070123");
         //如果错误，返回错误信息
         //将token返回给用户，返回登录成功信息
         return "Login success!";

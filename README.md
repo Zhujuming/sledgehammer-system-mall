@@ -17,3 +17,16 @@
 - 控制台地址：http://localhost:8080
 - 用户名：`nacos`
 - 密码：`9TVlQPhvwgXU`
+
+### Windows 启动Ubuntu
+- 启动Ubuntu：`wsl -d Ubuntu`
+- 用户名：`sledgehammer`
+- 密码：`root123.`
+- Redis 启动：打开 Ubuntu / Windows Terminal（WSL 标签），执行一次：
+- `sudo service redis-server start`
+- `redis-cli ping` 验证
+
+#### MySQL 启动
+- `sudo service mysql start`
+- 用户名：root
+- 密码：默认是空的（blank password）

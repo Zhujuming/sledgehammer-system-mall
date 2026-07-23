@@ -6,8 +6,10 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.auth0.jwt.JWTCreator.Builder;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +23,16 @@ public class JwtUtil {
      * JWT 签名密钥
      * 生产环境建议从配置文件或环境变量中读取
      */
-    private static final String SECRET_KEY = "sledgehammer-system-mall-jwt-secret-key-2024";
+    private static final String SECRET_KEY = "sledgehammer-system-mall-jwt-secret-key-2026";
+    /**
+     * 默认用户名
+     */
+    private static final String USERNAME = "sledgehammer";
+
+    /**
+     * 默认 Token 过期时间（24 小时）单位：毫秒
+     */
+    private static final long TOKEN_TIMEOUT_MILLIS = 1000 * 60 * 60 * 24;
 
     /**
      * 获取签名算法
@@ -32,19 +43,55 @@ public class JwtUtil {
         return Algorithm.HMAC256(SECRET_KEY);
     }
 
+
+
+    /**
+     * 生成 JWT Token（默认过期时间 24 小时）
+     *
+     * @param userId 用户ID
+     * @return JWT Token 字符串
+     */
+
+    public static String generateToken(String userId) {
+
+        //由于该生成器设置Header的参数为一个<String, Object>的Map，所以需要将userId转换为Map
+        Map<String, Object> headers = new HashMap<>();
+        headers.put("typ", "JWT"); // 设置Token类型为JWT
+        headers.put("alg", "HS256"); // 设置签名算法为HMAC256
+
+        //开始生成 Token，将之前准备好的header设置进去
+        String Token = JWT.create()
+                .withHeader(headers)                // 设置Header
+                .withClaim("userId", userId)  // 将userId设置为Claim
+                //Token过期时间(默认一天)
+                .withExpiresAt(new Date(System.currentTimeMillis() + TOKEN_TIMEOUT_MILLIS))
+                .withIssuedAt(new Date(System.currentTimeMillis()))
+                .withIssuer(USERNAME)  // 设置签发者(可自定义)
+                .sign(getAlgorithm()); //进行签名，选择加密算法，以一个字符串密钥为参数
+
+        //Token生成完毕，可以发送给客服端了，前端可以使用
+        //localStorage.setItem("token",Token);进行存储在下次请求是携带发送给服务器进行验证
+        System.out.println(Token);
+        return Token;
+    }
+
+    public static void main(String[] args) {
+        generateToken("1234567890");
+    }
+
     /**
      * 生成 JWT Token（默认过期时间 24 小时）
      *
      * @param subject Token 主题，通常为用户标识（如用户ID）
      * @return JWT Token 字符串
      */
-    public static String generateToken(String subject) {
-        return JWT.create()
-                .withSubject(subject)
-                .withIssuedAt(new Date())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 86400000))
-                .sign(getAlgorithm());
-    }
+//    public static String generateToken(String subject) {
+//        return JWT.create()
+//                .withSubject(subject)
+//                .withIssuedAt(new Date())
+//                .withExpiresAt(new Date(System.currentTimeMillis() + TOKEN_TIMEOUT_MILLIS))
+//                .sign(getAlgorithm());
+//    }
 
     /**
      * 生成 JWT Token（自定义过期时间）
@@ -69,10 +116,10 @@ public class JwtUtil {
      * @return JWT Token 字符串
      */
     public static String generateToken(Map<String, Object> claims, String subject) {
-        com.auth0.jwt.JWTCreator.Builder builder = JWT.create()
+        Builder builder = JWT.create()
                 .withSubject(subject)
                 .withIssuedAt(new Date())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 86400000));
+                .withExpiresAt(new Date(System.currentTimeMillis() + TOKEN_TIMEOUT_MILLIS));
 
         for (Map.Entry<String, Object> entry : claims.entrySet()) {
             addClaim(builder, entry.getKey(), entry.getValue());
@@ -111,32 +158,20 @@ public class JwtUtil {
         if (value == null) {
             return;
         }
-        if (value instanceof String) {
-            builder.withClaim(key, (String) value);
-        } else if (value instanceof Integer) {
-            builder.withClaim(key, (Integer) value);
-        } else if (value instanceof Long) {
-            builder.withClaim(key, (Long) value);
-        } else if (value instanceof Double) {
-            builder.withClaim(key, (Double) value);
-        } else if (value instanceof Boolean) {
-            builder.withClaim(key, (Boolean) value);
-        } else if (value instanceof Date) {
-            builder.withClaim(key, (Date) value);
-        } else if (value instanceof java.time.Instant) {
-            builder.withClaim(key, (java.time.Instant) value);
-        } else if (value instanceof Map) {
-            builder.withClaim(key, (Map<String, ?>) value);
-        } else if (value instanceof List) {
-            builder.withClaim(key, (List<?>) value);
-        } else if (value instanceof Integer[]) {
-            builder.withArrayClaim(key, (Integer[]) value);
-        } else if (value instanceof Long[]) {
-            builder.withArrayClaim(key, (Long[]) value);
-        } else if (value instanceof String[]) {
-            builder.withArrayClaim(key, (String[]) value);
-        } else {
-            builder.withClaim(key, value.toString());
+        switch (value) {
+            case String s -> builder.withClaim(key, s);
+            case Integer i -> builder.withClaim(key, i);
+            case Long l -> builder.withClaim(key, l);
+            case Double v -> builder.withClaim(key, v);
+            case Boolean b -> builder.withClaim(key, b);
+            case Date date -> builder.withClaim(key, date);
+            case java.time.Instant instant -> builder.withClaim(key, instant);
+            case Map map -> builder.withClaim(key, (Map<String, ?>) value);
+            case List list -> builder.withClaim(key, list);
+            case Integer[] integers -> builder.withArrayClaim(key, integers);
+            case Long[] longs -> builder.withArrayClaim(key, longs);
+            case String[] strings -> builder.withArrayClaim(key, strings);
+            default -> builder.withClaim(key, value.toString());
         }
     }
 
